@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models.fields import PlaceholderField
 from cms.utils.copy_plugins import copy_plugins_to
+from cms.utils.helpers import reversion_register
 
 
 def static_slotname(instance):
@@ -89,3 +90,6 @@ class StaticPlaceholder(models.Model):
         opts = self._meta
         return request.user.has_perm(opts.app_label + '.' + get_permission_codename('change', opts)) and \
                request.user.has_perm(opts.app_label + '.' + 'publish_page')
+
+
+reversion_register(StaticPlaceholder)
